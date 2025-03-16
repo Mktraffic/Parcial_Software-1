@@ -20,7 +20,7 @@ public class Flota {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     @OneToMany
     private ArrayList<Vehiculo> vehiculos = new ArrayList<>();
