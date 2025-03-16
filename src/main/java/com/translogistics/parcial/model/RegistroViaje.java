@@ -21,7 +21,7 @@ public class RegistroViaje {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @OneToMany(mappedBy = "id_registro")
-    @Column(name = "id_registro", length = 50)
+    @Column(name = "id_registro")
     private int id;
 
     @Column(name = "fecha_viaje", length = 50)
