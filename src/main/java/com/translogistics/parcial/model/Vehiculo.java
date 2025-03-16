@@ -15,7 +15,7 @@ import lombok.Data;
 public class Vehiculo {
 
     @Id
-    @Column(name = "placa_vehiculo", length = 10)
+    @Column(name = "placa_vehiculo", length = 10, nullable = false, unique = true)
     private String placa;
 
     @Column(name = "modelo", length = 80)
