@@ -18,8 +18,8 @@ public class RolAdministrador {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_administrador", length = 50)
-    private String id;
+    @Column(name = "id_administrador")
+    private int id;
 
     @Column(name = "nombre_rol", length = 50)
     @Size(min = 3, max = 50)

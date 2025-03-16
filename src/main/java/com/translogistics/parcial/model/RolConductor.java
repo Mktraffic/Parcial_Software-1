@@ -20,8 +20,8 @@ public class RolConductor {
     @Id
     @ManyToOne
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_conductor", length = 50)
-    private String id;
+    @Column(name = "id_conductor")
+    private int id;
 
     @Column(name = "nombre_rol", length = 50)
     @Size(min = 3, max = 50)

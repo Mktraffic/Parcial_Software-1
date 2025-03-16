@@ -18,8 +18,8 @@ public class RolDespachador {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_despachador", length = 50)
-	private String id;
+    @Column(name = "id_despachador")
+	private int id;
 
     @Column(name = "nombre_rol", length = 50)
     @Size(min = 3, max = 50)
