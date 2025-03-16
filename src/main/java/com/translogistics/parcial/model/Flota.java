@@ -26,5 +26,5 @@ public class Flota {
     private ArrayList<Vehiculo> vehiculos = new ArrayList<>();
 
     @OneToMany
-    private ArrayList<RolConductor> conductores = new ArrayList<>();
+    private ArrayList<Usuario> conductores = new ArrayList<>();
 }
