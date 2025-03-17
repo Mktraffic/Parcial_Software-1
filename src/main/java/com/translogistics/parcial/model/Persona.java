@@ -16,7 +16,7 @@ public class Persona {
 
     @Id
     @Column(name = "id_persona", length = 50, nullable = false)
-    private int id;
+    private long id;
 
     @Column(name = "nombre", length = 50)
     @Size(min = 3, max = 50)
