@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegistroViaje {
+public class RegistroViajeDTO {
 
     private int id;
     private String fechaViaje;
