@@ -85,16 +85,15 @@ public class RolService {
         return roles;
     }
 
-    public Optional<RolDTO> obtenerRolPorId(int id) {
-        Optional<? extends Rol> rol = Optional.empty();
+    public Optional<? extends RolDTO> obtenerRolPorId(int id) {
         if (rolAdministradorRepository.findById(id).isPresent()) {
-            rol = rolAdministradorRepository.findById(id);
+            return rolAdministradorRepository.findById(id).map(rolAdministradorMapper::toDTO);
         } else if (rolConductorRepository.findById(id).isPresent()) {
-            rol = rolConductorRepository.findById(id);
+            return rolConductorRepository.findById(id).map(rolConductorMapper::toDTO);
         } else if (rolDespachadorRepository.findById(id).isPresent()) {
-            rol = rolDespachadorRepository.findById(id);
+            return rolDespachadorRepository.findById(id).map(rolDespachadorMapper::toDTO);
         }
-        return rol.map(rolMapper::toDTO);
+        return Optional.empty();
     }
 
     public RolAdministradorDTO guardarRolAdministrador(RolAdministradorDTO rolAdministradorDTO) {
