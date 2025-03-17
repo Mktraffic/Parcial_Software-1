@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
@@ -31,7 +32,8 @@ public class Usuario {
     @Size(min = 5, max = 20, message = "La contraseña debe tener entre 5 y 20 caracteres")
     private String pasword;
 
-    @Column(name = "rol", nullable = false)
+    @ManyToOne //aca lo que dice es que muchos usuarios pueden compartir un mismo rol
+    @JoinColumn(name = "id_rol", nullable = false)  // va a ser la llave foranea del Rol
     private Rol rol;
 
     @OneToOne

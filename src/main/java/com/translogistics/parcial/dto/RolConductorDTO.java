@@ -2,17 +2,14 @@ package com.translogistics.parcial.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-
-public class RolConductorDTO {
-
-    private int id;
-    private String nombreRol;
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
+public class RolConductorDTO extends RolDTO {
     private String licencia;
     private String experiencia;
-    
 }
