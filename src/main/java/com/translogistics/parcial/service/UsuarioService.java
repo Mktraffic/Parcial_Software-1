@@ -1,0 +1,44 @@
+package com.translogistics.parcial.service;
+
+import com.translogistics.parcial.dto.UsuarioDTO;
+import com.translogistics.parcial.mapper.UsuarioMapper;
+import com.translogistics.parcial.model.Usuario;
+import com.translogistics.parcial.repository.UsuarioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@Service
+public class UsuarioService {
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private UsuarioMapper usuarioMapper;
+
+    public List<UsuarioDTO> findAllUsuarios() {
+        List<Usuario> usuarios = usuarioRepository.findAll();
+        return usuarios.stream()
+                .map(usuarioMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    public UsuarioDTO addUsuarioInDB(UsuarioDTO usuarioDTO) {
+        Usuario usuarioGuardado = usuarioRepository.save(usuarioMapper.toEntity(usuarioDTO));
+        return usuarioMapper.toDTO(usuarioGuardado);
+    }
+
+    public ResponseEntity<UsuarioDTO> fetchUsuarioById(Integer id) {
+        Optional<Usuario> usuario = usuarioRepository.findById(id);
+        if (usuario.isEmpty()) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(usuarioMapper.toDTO(usuario.get()), HttpStatus.OK);
+    }
+}
