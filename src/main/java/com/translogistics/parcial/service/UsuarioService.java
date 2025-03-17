@@ -41,4 +41,15 @@ public class UsuarioService {
         }
         return new ResponseEntity<>(usuarioMapper.toDTO(usuario.get()), HttpStatus.OK);
     }
+
+    public boolean validateUserById(Integer id, String password) {
+        Optional<Usuario> usuarioOptional = usuarioRepository.findById(id);
+
+        if (usuarioOptional.isPresent()) {
+            Usuario usuario = usuarioOptional.get();
+            return usuario.getPassword().equals(password); // Se debe usar getPassword()
+        }
+        return false;
+    }
+
 }
