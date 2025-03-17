@@ -97,15 +97,18 @@ public class RolService {
         return rol.map(rolMapper::toDTO);
     }
 
-    public RolDTO guardarRol(RolDTO rolDTO) {
-        Rol rol = rolMapper.toEntity(rolDTO);
-        if (rol instanceof RolAdministrador) { 
-            return rolMapper.toDTO(rolAdministradorRepository.save((RolAdministrador) rol));
-        } else if (rol instanceof RolConductor) {
-            return rolMapper.toDTO(rolConductorRepository.save((RolConductor) rol));
-        } else if (rol instanceof RolDespachador) {
-            return rolMapper.toDTO(rolDespachadorRepository.save((RolDespachador) rol));
-        }
-        throw new IllegalArgumentException("Tipo de rol desconocido");
+    public RolAdministradorDTO guardarRolAdministrador(RolAdministradorDTO rolAdministradorDTO) {
+        RolAdministrador rolAdministrador = rolAdministradorMapper.toEntity(rolAdministradorDTO);
+        return rolAdministradorMapper.toDTO(rolAdministradorRepository.save(rolAdministrador));
+    }
+
+    public RolConductorDTO guardarRolConductor(RolConductorDTO rolConductorDTO) {
+        RolConductor rolConductor = rolConductorMapper.toEntity(rolConductorDTO);
+        return rolConductorMapper.toDTO(rolConductorRepository.save(rolConductor));
+    }
+
+    public RolDespachadorDTO guardarRolDespachador(RolDespachadorDTO rolDespachadorDTO) {
+        RolDespachador rolDespachador = rolDespachadorMapper.toEntity(rolDespachadorDTO);
+        return rolDespachadorMapper.toDTO(rolDespachadorRepository.save(rolDespachador));
     }
 }
