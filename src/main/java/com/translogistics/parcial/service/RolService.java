@@ -7,7 +7,13 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.translogistics.parcial.dto.RolAdministradorDTO;
+import com.translogistics.parcial.dto.RolConductorDTO;
 import com.translogistics.parcial.dto.RolDTO;
+import com.translogistics.parcial.dto.RolDespachadorDTO;
+import com.translogistics.parcial.mapper.RolAdministradorMapper;
+import com.translogistics.parcial.mapper.RolConductorMapper;
+import com.translogistics.parcial.mapper.RolDespachadorMapper;
 import com.translogistics.parcial.mapper.RolMapper;
 import com.translogistics.parcial.model.Rol;
 import com.translogistics.parcial.model.RolAdministrador;
@@ -24,18 +30,45 @@ public class RolService {
     private final RolConductorRepository rolConductorRepository;
     private final RolDespachadorRepository rolDespachadorRepository;
     private final RolMapper rolMapper;
+    private final RolAdministradorMapper rolAdministradorMapper;
+    private final RolConductorMapper rolConductorMapper;
+    private final RolDespachadorMapper rolDespachadorMapper;
 
-    @Autowired
+     @Autowired
     public RolService(
         RolAdministradorRepository rolAdministradorRepository,
         RolConductorRepository rolConductorRepository,
         RolDespachadorRepository rolDespachadorRepository,
-        RolMapper rolMapper
+        RolMapper rolMapper,
+        RolAdministradorMapper rolAdministradorMapper,
+        RolConductorMapper rolConductorMapper,
+        RolDespachadorMapper rolDespachadorMapper
     ) {
         this.rolAdministradorRepository = rolAdministradorRepository;
         this.rolConductorRepository = rolConductorRepository;
         this.rolDespachadorRepository = rolDespachadorRepository;
         this.rolMapper = rolMapper;
+        this.rolAdministradorMapper = rolAdministradorMapper;
+        this.rolConductorMapper = rolConductorMapper;
+        this.rolDespachadorMapper = rolDespachadorMapper;
+    }
+
+    public ArrayList<RolConductorDTO> obtenerRolesConductor() {
+        return rolConductorRepository.findAll().stream()
+            .map(rolConductorMapper::toDTO)
+            .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public ArrayList<RolAdministradorDTO> obtenerRolesAdministrador() {
+        return rolAdministradorRepository.findAll().stream()
+            .map(rolAdministradorMapper::toDTO)
+            .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public ArrayList<RolDespachadorDTO> obtenerRolesDespachador() {
+        return rolDespachadorRepository.findAll().stream()
+            .map(rolDespachadorMapper::toDTO)
+            .collect(Collectors.toCollection(ArrayList::new));
     }
 
     public ArrayList<RolDTO> obtenerTodosLosRoles() {
@@ -50,24 +83,6 @@ public class RolService {
             .map(rolMapper::toDTO)
             .collect(Collectors.toList()));
         return roles;
-    }
-
-    public ArrayList<RolDTO> obtenerRolesAdministrador() {
-        return rolAdministradorRepository.findAll().stream()
-            .map(rolMapper::toDTO)
-            .collect(Collectors.toCollection(ArrayList::new));
-    }
-
-    public ArrayList<RolDTO> obtenerRolesConductor() {
-        return rolConductorRepository.findAll().stream()
-            .map(rolMapper::toDTO)
-            .collect(Collectors.toCollection(ArrayList::new));
-    }
-
-    public ArrayList<RolDTO> obtenerRolesDespachador() {
-        return rolDespachadorRepository.findAll().stream()
-            .map(rolMapper::toDTO)
-            .collect(Collectors.toCollection(ArrayList::new));
     }
 
     public Optional<RolDTO> obtenerRolPorId(int id) {
