@@ -18,12 +18,12 @@ public class Persona {
     @Column(name = "id_persona", length = 50, nullable = false)
     private long id;
 
-    @Column(name = "nombre", length = 50)
-    @Size(min = 3, max = 50)
+    @Column(name = "nombre", length = 100)
+    @Size(min = 3, max = 100)
     private String nombre;
 
-    @Column(name = "apellido", length = 50)
-    @Size(min = 3, max = 50)
+    @Column(name = "apellido", length = 100)
+    @Size(min = 3, max = 100)
     private String apellido;
     
 

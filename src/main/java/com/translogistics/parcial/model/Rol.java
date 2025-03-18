@@ -22,8 +22,8 @@ public abstract class Rol {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_rol")
-    private int id;
+    @Column(name = "id_rol", nullable = false)
+    private Long id;
 
     @Column(name = "nombre_rol", length = 50)
     @Size(min = 3, max = 50)

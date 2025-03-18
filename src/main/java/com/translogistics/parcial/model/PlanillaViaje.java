@@ -19,10 +19,10 @@ public class PlanillaViaje {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @OneToMany
-    @JoinColumn(name = "id_registro", nullable = false)
+    @JoinColumn(name = "planilla_id", nullable = false)
     private ArrayList<RegistroViaje> planilla;
 
 }

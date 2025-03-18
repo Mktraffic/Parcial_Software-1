@@ -6,7 +6,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
@@ -20,22 +22,21 @@ public class RegistroViaje {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @OneToMany(mappedBy = "id_registro")
-    @Column(name = "id_registro")
+    @Column(name = "id_registro", nullable = false)
     private int id;
 
     @Column(name = "fecha_viaje", length = 50)
     @Size(min = 3, max = 50)
     private String fechaViaje;
 
-    @OneToMany(mappedBy = "placa_vehiculo")
+    @OneToOne
     @JoinColumn(name = "placa_vehiculo", unique = true, nullable = false)
     @Size(min = 3, max = 50)
     private Vehiculo vehiculo;
 
-    @OneToMany(mappedBy = "id_conductor")
+    @OneToOne
     @JoinColumn(name = "id_conductor", unique = true, nullable = false)
     @Size(min = 3, max = 50)
-    private RolConductor conductor;
+    private Usuario conductor;
 
 }
