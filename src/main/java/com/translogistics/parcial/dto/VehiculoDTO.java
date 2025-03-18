@@ -13,5 +13,4 @@ public class VehiculoDTO {
     private int anio;
     private String tipo;
     private String estado;
-
 }

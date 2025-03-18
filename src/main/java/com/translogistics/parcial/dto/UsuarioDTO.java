@@ -8,9 +8,9 @@ import lombok.Data;
 @Builder
 public class UsuarioDTO {
 
+    private Long id;
+    
     private String user;
-
-    private int id;
 
     private String password;
 

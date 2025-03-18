@@ -5,9 +5,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class RolDTO {
-    private Long id;
-    private String nombreRol;
+@AllArgsConstructor
+public class UsuarioLogueadoDTO {
+
+    private RolDTO rol;
+
+    private PersonaDTO persona;
+
 }
