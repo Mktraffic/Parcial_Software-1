@@ -1,13 +1,9 @@
 package com.translogistics.parcial.controller;
 
 import com.translogistics.parcial.dto.RegistroViajeDTO;
-import com.translogistics.parcial.dto.RolConductorDTO;
-import com.translogistics.parcial.dto.RolDTO;
 import com.translogistics.parcial.dto.UsuarioDTO;
 import com.translogistics.parcial.dto.VehiculoDTO;
-import com.translogistics.parcial.model.Usuario;
 import com.translogistics.parcial.service.RegistroViajeService;
-import com.translogistics.parcial.service.RolService;
 import com.translogistics.parcial.service.UsuarioService;
 import com.translogistics.parcial.service.VehiculoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/despachador")
