@@ -3,8 +3,10 @@ package com.translogistics.parcial.controller;
 import com.translogistics.parcial.dto.RolConductorDTO;
 import com.translogistics.parcial.dto.RolDTO;
 import com.translogistics.parcial.dto.RolDespachadorDTO;
+import com.translogistics.parcial.dto.UsuarioDTO;
 import com.translogistics.parcial.dto.VehiculoDTO;
 import com.translogistics.parcial.service.RolService;
+import com.translogistics.parcial.service.UsuarioService;
 import com.translogistics.parcial.service.VehiculoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,87 +23,74 @@ import java.util.Optional;
 public class RolAdministradorController {
 
     @Autowired
-    private RolService rolService;
-    
+    private UsuarioService userService;
+
     @Autowired
     private VehiculoService vehiculoService;
 
-    
-
-    @GetMapping("/conductores")
-    public ResponseEntity<List<RolConductorDTO>> obtenerConductores() {
-        List<RolConductorDTO> conductores = rolService.obtenerRolesConductor();
-        return new ResponseEntity<>(conductores, HttpStatus.OK);
-    }
+    /*
+     * @GetMapping("/conductores")
+     * public ResponseEntity<List<RolConductorDTO>> obtenerConductores() {
+     * List<RolConductorDTO> conductores = rolService.obtenerRolesConductor();
+     * return new ResponseEntity<>(conductores, HttpStatus.OK);
+     * }
+     */
 
     @PostMapping("/agregarConductor")
-    public ResponseEntity<RolConductorDTO> registrarConductor(@RequestBody RolConductorDTO conductorDTO) {
-        RolConductorDTO nuevoConductor = rolService.guardarRolConductor(conductorDTO);
-        return new ResponseEntity<>(nuevoConductor, HttpStatus.CREATED);
+    public ResponseEntity<UsuarioDTO> registrarConductor(@RequestBody UsuarioDTO conductor) {
+        if (conductor.getRol().getNombreRol().equals("CONDUCTOR")) {
+            UsuarioDTO nuevoConductor = userService.addUsuarioInDB(conductor);
+            return new ResponseEntity<>(nuevoConductor, HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
 
-  @GetMapping("/buscarConductor/{id}")
-public ResponseEntity<RolConductorDTO> buscarConductorPorId(@PathVariable int id) {
-    Optional<? extends RolDTO> rolDTO = rolService.obtenerRolPorId(id);
-
-    if (rolDTO.isPresent() && rolDTO.get() instanceof RolConductorDTO) {
-        return new ResponseEntity<>((RolConductorDTO) rolDTO.get(), HttpStatus.OK);
-    } else {
+    @GetMapping("/buscarConductor/{id}")
+    public ResponseEntity<UsuarioDTO> buscarConductorPorId(@PathVariable Long id) {
+        List<UsuarioDTO> response = userService.findAllUsuarios();
+        for (UsuarioDTO usuarioDTO : response) {
+            if (usuarioDTO.getRol().getId().equals(id) && usuarioDTO.getRol().getNombreRol().equals("CONDUCTOR")) {
+                return new ResponseEntity<>(usuarioDTO, HttpStatus.OK);
+            }
+        }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-}
 
-@GetMapping("/despachadores")
-public ResponseEntity<List<RolDespachadorDTO>> obtenerTodosLosDespachadores() {
-    List<RolDespachadorDTO> despachadores = rolService.obtenerRolesDespachador();
-    return new ResponseEntity<>(despachadores, HttpStatus.OK);
-}
+    @PostMapping("/agregarDespachador")
+    public ResponseEntity<UsuarioDTO> registrarDespachador(@RequestBody UsuarioDTO despachador) {
+        if (despachador.getRol().getNombreRol().equals("DESPACHADOR")) {
+            UsuarioDTO nuevoDespachador = userService.addUsuarioInDB(despachador);
+            return new ResponseEntity<>(nuevoDespachador, HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+    }
 
-@PostMapping("/agregarDespachador")
-public ResponseEntity<RolDespachadorDTO> registrarDespachador(@RequestBody RolDespachadorDTO despachadorDTO) {
-    RolDespachadorDTO nuevoDespachador = rolService.guardarRolDespachador(despachadorDTO);
-    return new ResponseEntity<>(nuevoDespachador, HttpStatus.CREATED);
-}
-@GetMapping("/buscarDespachador/{id}")
-public ResponseEntity<RolDespachadorDTO> buscarDespachadorPorId(@PathVariable int id) {
-    Optional<? extends RolDTO> rolDTO = rolService.obtenerRolPorId(id);
-    if (rolDTO.isPresent() && rolDTO.get() instanceof RolDespachadorDTO) {
-        return new ResponseEntity<>((RolDespachadorDTO) rolDTO.get(), HttpStatus.OK);
-    } else {
+    @GetMapping("/buscarDespachador/{id}")
+    public ResponseEntity<UsuarioDTO> buscarDespachadorPorId(@PathVariable Long id) {
+        List<UsuarioDTO> response = userService.findAllUsuarios();
+        for (UsuarioDTO usuarioDTO : response) {
+            if (usuarioDTO.getRol().getId().equals(id) && usuarioDTO.getRol().getNombreRol().equals("DESPACHADOR")) {
+                return new ResponseEntity<>(usuarioDTO, HttpStatus.OK);
+            }
+        }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-}
 
-@GetMapping("/vehiculos")
-public ResponseEntity<List<VehiculoDTO>> obtenerTodosLosVehiculos() {
-    List<VehiculoDTO> vehiculos = vehiculoService.findAllVehiculos();
-    return new ResponseEntity<>(vehiculos, HttpStatus.OK);
-}
+    @GetMapping("/vehiculos")
+    public ResponseEntity<List<VehiculoDTO>> obtenerTodosLosVehiculos() {
+        List<VehiculoDTO> vehiculos = vehiculoService.findAllVehiculos();
+        return new ResponseEntity<>(vehiculos, HttpStatus.OK);
+    }
 
-
- 
     @PostMapping("/agregarVehiculo")
     public ResponseEntity<VehiculoDTO> registrarVehiculo(@RequestBody VehiculoDTO vehiculoDTO) {
         VehiculoDTO nuevoVehiculo = vehiculoService.addVehiculoInDB(vehiculoDTO);
         return new ResponseEntity<>(nuevoVehiculo, HttpStatus.CREATED);
     }
 
-
-    
-@GetMapping("/buscarVehiculo/{id}")
-public ResponseEntity<VehiculoDTO> buscarVehiculoPorId(@PathVariable String id) {
-    ResponseEntity<VehiculoDTO> vehiculo = vehiculoService.fetchVehiculoByPlaca(id);
-    return vehiculo;
-   
+    @GetMapping("/buscarVehiculo/{placa}")
+    public ResponseEntity<VehiculoDTO> buscarVehiculoPorPlaca(@PathVariable String placa) {
+        ResponseEntity<VehiculoDTO> vehiculo = vehiculoService.fetchVehiculoByPlaca(placa);
+        return vehiculo;
+    }
 }
-
-
-
-
-
-
-}
-
-   
-
-
