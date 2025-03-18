@@ -1,12 +1,10 @@
 package com.translogistics.parcial.service;
 
-import java.util.ArrayList;
+import org.springframework.stereotype.Service;
+/*import java.util.ArrayList;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.translogistics.parcial.dto.RolAdministradorDTO;
 import com.translogistics.parcial.dto.RolConductorDTO;
 import com.translogistics.parcial.dto.RolDTO;
@@ -21,12 +19,12 @@ import com.translogistics.parcial.model.RolConductor;
 import com.translogistics.parcial.model.RolDespachador;
 import com.translogistics.parcial.repository.RolAdministradorRepository;
 import com.translogistics.parcial.repository.RolConductorRepository;
-import com.translogistics.parcial.repository.RolDespachadorRepository;
+import com.translogistics.parcial.repository.RolDespachadorRepository;*/
 
 @Service
 public class RolService {
 
-    private final RolAdministradorRepository rolAdministradorRepository;
+    /*private final RolAdministradorRepository rolAdministradorRepository;
     private final RolConductorRepository rolConductorRepository;
     private final RolDespachadorRepository rolDespachadorRepository;
     private final RolMapper rolMapper;
@@ -109,5 +107,5 @@ public class RolService {
     public RolDespachadorDTO guardarRolDespachador(RolDespachadorDTO rolDespachadorDTO) {
         RolDespachador rolDespachador = rolDespachadorMapper.toEntity(rolDespachadorDTO);
         return rolDespachadorMapper.toDTO(rolDespachadorRepository.save(rolDespachador));
-    }
+    }*/
 }

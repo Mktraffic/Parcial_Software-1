@@ -1,11 +1,11 @@
 package com.translogistics.parcial.service;
 
 import java.util.List;
-import java.util.Optional;
+//import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+//import org.springframework.http.HttpStatus;
+//import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.translogistics.parcial.dto.RegistroViajeDTO;
 import com.translogistics.parcial.mapper.RegistroViajeMapper;
@@ -22,19 +22,19 @@ public class RegistroViajeService {
 
     public List<RegistroViajeDTO> findAllRegistroViaje(){
         List<RegistroViaje> registroViajes = registroViajeRepository.findAll();
-        return registroViajes.stream().map(registroViajeMapper::toDTO).collect(Collectors.toList()
-        );
+        return registroViajes.stream().map(registroViajeMapper::toDTO).collect(Collectors.toList());
     }
 
     public RegistroViajeDTO addRegistroViaje(RegistroViajeDTO registroViajeDTO){
         RegistroViaje savedRegistroViaje = registroViajeRepository.save(registroViajeMapper.toEntity(registroViajeDTO));
         return registroViajeMapper.toDTO(savedRegistroViaje);
     }
-    public ResponseEntity<RegistroViajeDTO> searchRegistroViajeById(int id){
+
+    /*public ResponseEntity<RegistroViajeDTO> searchRegistroViajeById(int id){
         Optional<RegistroViaje> registro = registroViajeRepository.findById(id);
         if (registro.isEmpty()) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(registroViajeMapper.toDTO(registro.get()),HttpStatus.OK);
-    }
+    }*/
 }

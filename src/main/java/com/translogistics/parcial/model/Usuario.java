@@ -18,7 +18,6 @@ import lombok.Getter;
 @Table(name = "usuario")
 @Data
 @Builder
-@Getter
 public class Usuario {
 
     @Id
@@ -41,10 +40,5 @@ public class Usuario {
     @OneToOne
     @JoinColumn(name = "id_persona", nullable = false)
     private Persona persona;
-
-    public String getPassword(){
-        return password;
-    }
-
 
 }

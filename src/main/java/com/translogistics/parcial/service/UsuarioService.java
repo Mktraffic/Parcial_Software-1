@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 @Service
 public class UsuarioService {
 
+
     @Autowired
     private UsuarioRepository usuarioRepository;
 
@@ -34,7 +35,7 @@ public class UsuarioService {
         return usuarioMapper.toDTO(usuarioGuardado);
     }
 
-    public ResponseEntity<UsuarioDTO> fetchUsuarioById(Integer id) {
+    public ResponseEntity<UsuarioDTO> fetchUsuarioById(Long id) {
         Optional<Usuario> usuario = usuarioRepository.findById(id);
         if (usuario.isEmpty()) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -42,7 +43,7 @@ public class UsuarioService {
         return new ResponseEntity<>(usuarioMapper.toDTO(usuario.get()), HttpStatus.OK);
     }
 
-    public boolean validateUserById(Integer id, String password) {
+    public boolean validateUserById(Long id, String password) {
         Optional<Usuario> usuarioOptional = usuarioRepository.findById(id);
 
         if (usuarioOptional.isPresent()) {
