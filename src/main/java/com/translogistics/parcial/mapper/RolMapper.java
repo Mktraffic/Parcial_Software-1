@@ -9,6 +9,8 @@ import com.translogistics.parcial.model.RolAdministrador;
 import com.translogistics.parcial.model.RolConductor;
 import com.translogistics.parcial.model.RolDespachador;
 
+//esta creo que no es necesaria
+
 @Mapper(componentModel = "spring", uses = {RolAdministradorMapper.class, RolConductorMapper.class, RolDespachadorMapper.class})
 public interface RolMapper {
 

@@ -12,4 +12,5 @@ public interface UsuarioMapper {
 
     UsuarioDTO toDTO(Usuario usuario);
     Usuario toEntity(UsuarioDTO usuarioDTO);
+    
 }

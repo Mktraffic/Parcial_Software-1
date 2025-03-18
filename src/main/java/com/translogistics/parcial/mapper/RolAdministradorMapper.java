@@ -3,6 +3,8 @@ import com.translogistics.parcial.dto.RolAdministradorDTO;
 import com.translogistics.parcial.model.RolAdministrador;
 import org.mapstruct.Mapper;
 
+//esta creo que no es necesaria
+
 @Mapper(componentModel = "spring")
 public interface RolAdministradorMapper {
 
