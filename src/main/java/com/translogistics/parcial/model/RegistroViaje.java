@@ -23,7 +23,7 @@ public class RegistroViaje {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_registro", nullable = false)
-    private int id;
+    private Long id;
 
     @Column(name = "fecha_viaje", length = 50)
     @Size(min = 3, max = 50)

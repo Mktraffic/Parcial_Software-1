@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RolConductorDTO extends RolDTO {
     private String licencia;
-    private String experiencia;
+    private int experiencia;
 
-    public RolConductorDTO(Long id, String nombreRol, String licencia, String experiencia) {
+    public RolConductorDTO(Long id, String nombreRol, String licencia, int experiencia) {
         super(id, nombreRol);
         this.licencia = licencia;
         this.experiencia = experiencia;

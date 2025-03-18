@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface RolConductorRepository extends JpaRepository<RolConductor, Integer> {
+public interface RolConductorRepository extends JpaRepository<RolConductor, Long> {
 
 }
 

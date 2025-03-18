@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface RolDespachadorRepository extends JpaRepository<RolDespachador, Integer> {
+public interface RolDespachadorRepository extends JpaRepository<RolDespachador, Long> {
 
 }
 
