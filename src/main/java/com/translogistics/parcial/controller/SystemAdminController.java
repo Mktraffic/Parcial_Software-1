@@ -34,7 +34,7 @@ public class SystemAdminController {
 
     @PostMapping("/login")
     public ResponseEntity<String> loginAdmin(@RequestBody UsuarioDTO usuarioDTO) {
-        boolean isAuthenticated = usuarioService.validateUserById(usuarioDTO.getId(), usuarioDTO.getPasword());
+        boolean isAuthenticated = usuarioService.validateUserById(usuarioDTO.getId(), usuarioDTO.getPassword());
 
         if (isAuthenticated) {
             return new ResponseEntity<>("Login exitoso para el administrador con ID: " + usuarioDTO.getId(), HttpStatus.OK);
@@ -44,7 +44,7 @@ public class SystemAdminController {
 
     @PostMapping("/dispatcher/login")
     public ResponseEntity<String> loginDispatcher(@RequestBody UsuarioDTO usuarioDTO) {
-        boolean isAuthenticated = usuarioService.validateUserById(usuarioDTO.getId(), usuarioDTO.getPasword());
+        boolean isAuthenticated = usuarioService.validateUserById(usuarioDTO.getId(), usuarioDTO.getPassword());
 
         if (isAuthenticated) {
             return new ResponseEntity<>("Login exitoso para el despachador con ID: " + usuarioDTO.getId(), HttpStatus.OK);
