@@ -27,9 +27,9 @@ public class Usuario {
     @Size(min = 5, max = 50, message = "El usuario debe tener entre 5 y 50 caracteres")
     private String user_name;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "user_password", nullable = false)
     @Size(min = 5, max = 30, message = "La contraseña debe tener entre 5 y 20 caracteres")
-    private String password;
+    private String user_password;
 
     @OneToOne //aca lo que dice es que muchos usuarios pueden compartir un mismo rol
     @JoinColumn(name = "id_rol", nullable = false)  // va a ser la llave foranea del Rol

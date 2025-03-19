@@ -43,7 +43,7 @@ public class SystemController {
 
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestBody UsuarioDTO usuarioDTO) {
-        boolean isAuthenticated = usuarioService.validateUserById(usuarioDTO.getId(), usuarioDTO.getPassword());
+        boolean isAuthenticated = usuarioService.validateUserById(usuarioDTO.getId(), usuarioDTO.getUser_password());
 
         if (isAuthenticated) {
             return new ResponseEntity<>("Login exitoso para el " + usuarioDTO.getRol().getNombreRol() + " con ID: " + usuarioDTO.getId(), HttpStatus.OK);

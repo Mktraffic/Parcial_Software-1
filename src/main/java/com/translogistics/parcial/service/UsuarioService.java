@@ -48,7 +48,7 @@ public class UsuarioService {
 
         if (usuarioOptional.isPresent()) {
             Usuario usuario = usuarioOptional.get();
-            return usuario.getPassword().equals(password); // Se debe usar getPassword()
+            return usuario.getUser_password().equals(password); // Se debe usar getPassword()
         }
         return false;
     }
