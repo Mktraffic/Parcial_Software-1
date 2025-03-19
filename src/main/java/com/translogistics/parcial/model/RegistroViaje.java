@@ -19,7 +19,6 @@ import lombok.Data;
 public class RegistroViaje {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_registro", nullable = false)
     private Long id;
 
