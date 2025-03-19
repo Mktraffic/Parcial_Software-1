@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Entity
@@ -18,6 +19,7 @@ import lombok.Data;
 @Table(name = "rol")  // Crea una tabla "rol" para almacenar todos los roles
 @DiscriminatorColumn(name = "tipo_rol", discriminatorType = DiscriminatorType.STRING) // Diferencia los roles
 @Data
+@AllArgsConstructor
 public abstract class Rol {
 
     @Id
@@ -28,4 +30,5 @@ public abstract class Rol {
     @Column(name = "nombre_rol", length = 50)
     @Size(min = 3, max = 50)
     private String nombreRol;
+    
 }

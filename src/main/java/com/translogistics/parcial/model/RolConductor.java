@@ -4,7 +4,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.Size;
-
 import lombok.Data;
 
 @Entity
@@ -18,4 +17,10 @@ public class RolConductor extends Rol {
 
     @Column(name = "anios_experiencia")
     private int experiencia;
+
+    public RolConductor(Long id, String nombreRol, String licencia, int experiencia) {
+        super(id, nombreRol);
+        this.licencia = licencia;
+        this.experiencia = experiencia;
+    }
 }
