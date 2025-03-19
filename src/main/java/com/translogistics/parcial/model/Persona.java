@@ -5,13 +5,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "persona")
 @Data
-@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Persona {
 
     @Id
@@ -25,6 +27,6 @@ public class Persona {
     @Column(name = "apellido", length = 100)
     @Size(min = 3, max = 100)
     private String apellido;
-    
+     
 
 }

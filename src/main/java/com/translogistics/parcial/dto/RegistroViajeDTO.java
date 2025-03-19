@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class RegistroViajeDTO {
 
-    private int id;
+    private Long id;
     private String fechaViaje;
     private VehiculoDTO vehiculo;
     private UsuarioDTO conductor; // Cambiar a RolConductorDTO

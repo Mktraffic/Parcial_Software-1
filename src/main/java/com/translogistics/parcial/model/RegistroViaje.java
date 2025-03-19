@@ -9,13 +9,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Entity
 @Table(name = "registro_viaje")
 @Data
-@Builder
+@AllArgsConstructor
 public class RegistroViaje {
 
     @Id
@@ -35,6 +35,6 @@ public class RegistroViaje {
     @OneToOne
     @JoinColumn(name = "id_conductor", unique = true, nullable = false)
     @Size(min = 3, max = 50)
-    private Usuario conductor;
+    private Usuario conductor; 
 
 }
