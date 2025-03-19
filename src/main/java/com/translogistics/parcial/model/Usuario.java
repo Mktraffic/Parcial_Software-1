@@ -1,20 +1,14 @@
 package com.translogistics.parcial.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 @Entity
 @Table(name = "usuario")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class Usuario {
 
@@ -31,12 +25,11 @@ public class Usuario {
     @Size(min = 5, max = 30, message = "La contraseña debe tener entre 5 y 20 caracteres")
     private String user_password;
 
-    @OneToOne //aca lo que dice es que muchos usuarios pueden compartir un mismo rol
-    @JoinColumn(name = "id_rol", nullable = false)  // va a ser la llave foranea del Rol
+    @ManyToOne // Un rol puede ser compartido por varios usuarios
+    @JoinColumn(name = "id_rol", nullable = false)
     private Rol rol;
 
     @OneToOne
     @JoinColumn(name = "id_persona", nullable = false)
     private Persona persona;
-
 }
