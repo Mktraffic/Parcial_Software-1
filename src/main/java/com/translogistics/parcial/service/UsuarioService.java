@@ -1,6 +1,5 @@
 package com.translogistics.parcial.service;
 
-import com.translogistics.parcial.controller.connectionController;
 import com.translogistics.parcial.dto.UsuarioDTO;
 import com.translogistics.parcial.mapper.UsuarioMapper;
 import com.translogistics.parcial.model.Usuario;
@@ -10,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
