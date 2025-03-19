@@ -14,6 +14,8 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+
+
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)  // Usa JOINED para crear una tabla por cada subclase
 @Table(name = "rol")  // Crea una tabla "rol" para almacenar todos los roles

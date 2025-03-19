@@ -16,14 +16,14 @@ public class RolMapperImplement implements RolMapper {
 
     @Override
     public RolDTO toDTO(Rol rol, String licencia, int experiencia) {
-        if (rol.getNombreRol().equals("Administrador")) {
-            return new RolAdministradorDTO(rol.getId(), "Administrador");
+        if (rol.getNombreRol().equals("ADMINISTRADOR")) {
+            return new RolAdministradorDTO(rol.getId(), "ADMINISTRADOR");
         }
-        if (rol.getNombreRol().equals("Conductor")) {
-            return new RolConductorDTO(rol.getId(), "Conductor", licencia, experiencia);
+        if (rol.getNombreRol().equals("CONDUCTOR")) {
+            return new RolConductorDTO(rol.getId(), "CONDUCTOR", licencia, experiencia);
         }
-        if (rol.getNombreRol().equals("Despachador")) {
-            return new RolDespachadorDTO(rol.getId(), "Despachador");
+        if (rol.getNombreRol().equals("DESPACHADOR")) {
+            return new RolDespachadorDTO(rol.getId(), "DESPACHADOR");
         }
         return null;
     }
@@ -31,14 +31,14 @@ public class RolMapperImplement implements RolMapper {
     @Override
     public Rol toEntity(RolDTO dto) {
         if (dto instanceof RolAdministradorDTO) {
-            return new RolAdministrador(dto.getId(), "Administrador");
+            return new RolAdministrador(dto.getId(), "ADMINSTRADOR");
         }
         if (dto instanceof RolConductorDTO) {
             RolConductorDTO conductorDTO = (RolConductorDTO) dto;
-            return new RolConductor(conductorDTO.getId(), "Conductor", conductorDTO.getLicencia(), conductorDTO.getExperiencia());
+            return new RolConductor(conductorDTO.getId(), "CONDUCTOR", conductorDTO.getLicencia(), conductorDTO.getExperiencia());
         }
         if (dto instanceof RolDespachadorDTO) {
-            return new RolDespachador(dto.getId(), "Despachador");
+            return new RolDespachador(dto.getId(), "DESPACHADOR");
         }
         return null;
     }

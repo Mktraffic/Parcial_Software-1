@@ -33,7 +33,7 @@ public class UsuarioMapperImplement implements UsuarioMapper {
             }
             if (usuario.getRol() instanceof RolConductor) {
                 RolConductor conductor = (RolConductor) usuario.getRol();
-                RolConductorDTO conductorF = new RolConductorDTO(conductor.getId(), "Conductor",
+                RolConductorDTO conductorF = new RolConductorDTO(conductor.getId(), "CONDUCTOR",
                         conductor.getLicencia(), conductor.getExperiencia());
                 usuarioDTO = new UsuarioDTO(
                         usuario.getId(),
@@ -74,7 +74,7 @@ public class UsuarioMapperImplement implements UsuarioMapper {
             }
             if (usuarioDTO.getRol() instanceof RolConductorDTO) {
                 RolConductorDTO conductor = (RolConductorDTO) usuarioDTO.getRol();
-                RolConductor conductorF = new RolConductor(conductor.getId(), "Conductor", conductor.getLicencia(),
+                RolConductor conductorF = new RolConductor(conductor.getId(), "CONDUCTOR", conductor.getLicencia(),
                         conductor.getExperiencia());
                 usuario = new Usuario(
                         usuario.getId(),

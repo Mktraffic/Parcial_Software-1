@@ -28,6 +28,7 @@ public class VehiculoService {
                 .map(vehiculoMapper::toDTO)
                 .collect(Collectors.toList());
     }
+    
 
     // Guardar un vehículo en la base de datos
     public VehiculoDTO addVehiculoInDB(VehiculoDTO vehiculoDTO) {
