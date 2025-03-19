@@ -12,7 +12,7 @@ public class UsuarioDTO {
 
     private Long id;
     
-    private String user;
+    private String user_name;
 
     private String password;
 
