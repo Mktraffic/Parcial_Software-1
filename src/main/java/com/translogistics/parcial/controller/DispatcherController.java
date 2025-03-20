@@ -22,7 +22,8 @@ import com.translogistics.parcial.service.RegistroViajeService;
 import com.translogistics.parcial.service.UsuarioService;
 import com.translogistics.parcial.service.VehiculoService;
 
-@RestController
+
+@Controller
 public class DispatcherController {
     @Autowired
     private VehiculoService vehiculoService;
@@ -74,7 +75,9 @@ public class DispatcherController {
         model.addAttribute("conductores", findAllDrivers());
         return "assignDriver";
     }
-
+    
+   
+    @GetMapping("/all/drivers")
     public List<String> findAllDrivers() {
         List<UsuarioDTO> usuarios = usuarioService.findAllUsuarios();
         List<String> drivers = new ArrayList<>();
@@ -86,7 +89,7 @@ public class DispatcherController {
         }
         return drivers;
     }
-
+    @GetMapping("/all/vehiculo")
     public List<String> findAllPlatesVehicles() {
         List<VehiculoDTO> vehiculos = vehiculoService.findAllVehiculos();
         List<String> plates = new ArrayList<>();

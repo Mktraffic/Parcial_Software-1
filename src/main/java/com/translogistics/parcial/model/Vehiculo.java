@@ -21,7 +21,7 @@ public class Vehiculo {
     private String placa;
 
     @Column(name = "modelo", length = 80)
-    @Size(min = 8, max = 80)
+    @Size(min = 1, max = 80)
     private String modelo;
 
     @Column(name = "anio")

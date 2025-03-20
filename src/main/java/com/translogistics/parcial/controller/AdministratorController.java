@@ -2,6 +2,7 @@ package com.translogistics.parcial.controller;
 
 import com.translogistics.parcial.dto.PersonaDTO;
 import com.translogistics.parcial.dto.RolConductorDTO;
+import com.translogistics.parcial.dto.RolDTO;
 import com.translogistics.parcial.dto.RolDespachadorDTO;
 import com.translogistics.parcial.dto.UsuarioDTO;
 import com.translogistics.parcial.dto.VehiculoDTO;
@@ -15,11 +16,13 @@ import com.translogistics.parcial.service.VehiculoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 public class AdministratorController {
     @Autowired
     private UsuarioService usuarioService;
@@ -31,68 +34,67 @@ public class AdministratorController {
     private RolService rolService;
 
     @PostMapping("/registro/conductor")
-    public ResponseEntity<UsuarioDTO> registrarConductor(@RequestBody UsuarioDTO conductor) {
-        if (conductor.getPersona() == null) {
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-        }
+    public String registrarConductor(@ModelAttribute UsuarioDTO usuario, Model model) {
+    
         PersonaDTO persona = new PersonaDTO(
-                conductor.getPersona().getId(),
-                conductor.getPersona().getNombre(),
-                conductor.getPersona().getApellido());
+            usuario.getPersona().getId(),
+            usuario.getPersona().getNombre(),
+            usuario.getPersona().getApellido());
         PersonaDTO nuevaPersona = personaService.addPersonaInDB(persona);
-        if (conductor.getRol() instanceof RolConductorDTO) {
-            RolConductorDTO rolConductorDTO = (RolConductorDTO) conductor.getRol();
-
+    
+        usuario.getRol().setNombreRol("CONDUCTOR");
+    
+        if (usuario.getRol() instanceof RolConductorDTO) {
+            RolConductorDTO rolConductorDTO = (RolConductorDTO) usuario.getRol();
+    
             RolConductor nuevoRol = new RolConductor(
                     rolConductorDTO.getId(),
                     rolConductorDTO.getNombreRol(),
                     rolConductorDTO.getLicencia(),
                     rolConductorDTO.getExperiencia());
-
+    
             RolConductor rolGuardado = rolService.guardarRolConductor(nuevoRol);
-            conductor.setPersona(nuevaPersona);
-            conductor.setRol(new RolConductorDTO(rolGuardado.getId(), rolGuardado.getNombreRol(),
+            
+            usuario.setPersona(nuevaPersona);
+            usuario.setRol(new RolConductorDTO(rolGuardado.getId(), rolGuardado.getNombreRol(),
                     rolGuardado.getLicencia(), rolGuardado.getExperiencia()));
-            UsuarioDTO nuevoUsuario = usuarioService.addUsuarioInDB(conductor);
-
-            return new ResponseEntity<>(nuevoUsuario, HttpStatus.CREATED);
+            
+                    UsuarioDTO nuevoUsuario = usuarioService.addUsuarioInDB(usuario);
+        model.addAttribute("usuarioDTO", nuevoUsuario);
         }
-
-        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+    
+        return "driverRegistration";
     }
 
-    @PostMapping("/registro/Vehiculo")
-    public ResponseEntity<VehiculoDTO> registrarVehiculo(@RequestBody VehiculoDTO vehiculoDTO) {
+    @PostMapping("/registroVehiculo")
+    public String registrarVehiculo(@ModelAttribute VehiculoDTO vehiculoDTO, Model model) {
         VehiculoDTO nuevoVehiculo = vehiculoService.addVehiculoInDB(vehiculoDTO);
-        return new ResponseEntity<>(nuevoVehiculo, HttpStatus.CREATED);
+        model.addAttribute("vehiculoDTO", nuevoVehiculo);
+        return "vehicleRegistration";
     }
 
     @PostMapping("/registro/Despachador")
-    public ResponseEntity<UsuarioDTO> registrarDespachador(@RequestBody UsuarioDTO despachador) {
+public String registrarDespachador(@ModelAttribute UsuarioDTO usuario, Model model) {
 
-        if (despachador.getPersona() == null) {
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-        }
-        PersonaDTO persona = new PersonaDTO(
-                despachador.getPersona().getId(),
-                despachador.getPersona().getNombre(),
-                despachador.getPersona().getApellido());
-        PersonaDTO nuevaPersona = personaService.addPersonaInDB(persona);
-
-        if (despachador.getRol() instanceof RolDespachadorDTO) {
-            RolDespachadorDTO rolDespachadorDTO = (RolDespachadorDTO) despachador.getRol();
-
-            RolDespachador nuevoRol = new RolDespachador(
-                    rolDespachadorDTO.getId(),
-                    rolDespachadorDTO.getNombreRol());
-
-            RolDespachador rolGuardado = rolService.guardarRolDespachador(nuevoRol);
-            despachador.setPersona(nuevaPersona);
-            despachador.setRol(new RolDespachadorDTO(rolGuardado.getId(), rolGuardado.getNombreRol()));
-            UsuarioDTO nuevoUsuario = usuarioService.addUsuarioInDB(despachador);
-            return new ResponseEntity<>(nuevoUsuario, HttpStatus.CREATED);
-
-        }
-        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+    PersonaDTO nuevaPersona = personaService.addPersonaInDB(usuario.getPersona());
+    RolDespachadorDTO rolDTO;
+    if (usuario.getRol() instanceof RolDespachadorDTO) {
+        rolDTO = (RolDespachadorDTO) usuario.getRol();
+    } else {
+        rolDTO = new RolDespachadorDTO();
     }
+
+    rolDTO.setNombreRol("DESPACHADOR");
+
+    
+    RolDespachador rolGuardado = rolService.guardarRolDespachador(new RolDespachador(rolDTO.getId(), rolDTO.getNombreRol()));
+
+    usuario.setPersona(nuevaPersona);
+    usuario.setRol(new RolDespachadorDTO(rolGuardado.getId(), rolGuardado.getNombreRol()));
+
+    model.addAttribute("usuarioDTO", usuarioService.addUsuarioInDB(usuario));
+
+    return "dispatcherRegistration";
+}
+
 }

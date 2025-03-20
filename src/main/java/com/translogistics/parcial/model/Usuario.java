@@ -18,11 +18,11 @@ public class Usuario {
     private Long id;
 
     @Column(name = "user_name", nullable =  false)
-    @Size(min = 5, max = 50, message = "El usuario debe tener entre 5 y 50 caracteres")
+    @Size(min = 1, max = 50, message = "El usuario debe tener entre 5 y 50 caracteres")
     private String user_name;
 
     @Column(name = "password", nullable = false)
-    @Size(min = 5, max = 30, message = "La contraseña debe tener entre 5 y 20 caracteres")
+    @Size(min = 1, max = 30, message = "La contraseña debe tener entre 5 y 20 caracteres")
     private String user_password;
 
     @ManyToOne 

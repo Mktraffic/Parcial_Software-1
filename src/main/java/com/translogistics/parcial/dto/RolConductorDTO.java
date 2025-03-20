@@ -1,5 +1,7 @@
 package com.translogistics.parcial.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,5 +17,9 @@ public class RolConductorDTO extends RolDTO {
         super(id, nombreRol);
         this.licencia = licencia;
         this.experiencia = experiencia;
+    }
+     @JsonProperty("tipo")
+    public String getTipo() {
+        return "conductor"; 
     }
 }

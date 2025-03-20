@@ -27,6 +27,7 @@ import lombok.NoArgsConstructor;
 public abstract class Rol {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_rol", nullable = false)
     private Long id;
 
