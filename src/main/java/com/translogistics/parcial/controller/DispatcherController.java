@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.translogistics.parcial.dto.RegistroViajeDTO;
 import com.translogistics.parcial.dto.UsuarioDTO;
@@ -21,7 +22,7 @@ import com.translogistics.parcial.service.RegistroViajeService;
 import com.translogistics.parcial.service.UsuarioService;
 import com.translogistics.parcial.service.VehiculoService;
 
-@Controller
+@RestController
 public class DispatcherController {
     @Autowired
     private VehiculoService vehiculoService;

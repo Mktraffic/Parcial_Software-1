@@ -31,6 +31,8 @@ public class UsuarioService {
     }
 
     public UsuarioDTO addUsuarioInDB(UsuarioDTO usuarioDTO) {
+        System.out.println("Usuario antes de persistir: " + usuarioDTO);
+        System.out.println("Contraseña antes de persistir: " + usuarioDTO.getUser_password());
         Usuario usuarioGuardado = usuarioRepository.save(usuarioMapper.toEntity(usuarioDTO));
         return usuarioMapper.toDTO(usuarioGuardado);
     }

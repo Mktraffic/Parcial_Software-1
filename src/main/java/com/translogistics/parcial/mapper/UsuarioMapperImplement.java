@@ -15,84 +15,60 @@ import com.translogistics.parcial.model.Usuario;
 @Component
 public class UsuarioMapperImplement implements UsuarioMapper {
 
+    @Autowired
+    private PersonaMapper personaMapper; 
+
     @Override
     public UsuarioDTO toDTO(Usuario usuario) {
-        UsuarioDTO usuarioDTO = new UsuarioDTO();
-        if (!usuario.equals(null)) {
-            PersonaMapperImplement personaMapper = new PersonaMapperImplement();
-
-            if (usuario.getRol() instanceof RolAdministrador) {
-                RolAdministradorDTO administradorDTO = new RolAdministradorDTO(usuario.getRol().getId(),
-                        usuario.getRol().getNombreRol());
-                usuarioDTO = new UsuarioDTO(
-                        usuario.getId(),
-                        usuario.getUser_name(),
-                        usuario.getUser_password(),
-                        administradorDTO,
-                        personaMapper.toDTO(usuario.getPersona()));
-            }
-            if (usuario.getRol() instanceof RolConductor) {
-                RolConductor conductor = (RolConductor) usuario.getRol();
-                RolConductorDTO conductorF = new RolConductorDTO(conductor.getId(), "CONDUCTOR",
-                        conductor.getLicencia(), conductor.getExperiencia());
-                usuarioDTO = new UsuarioDTO(
-                        usuario.getId(),
-                        usuario.getUser_name(),
-                        usuario.getUser_password(),
-                        conductorF,
-                        personaMapper.toDTO(usuario.getPersona()));
-            }
-            if (usuario.getRol() instanceof RolDespachador) {
-                RolDespachadorDTO despachador = new RolDespachadorDTO(usuario.getId(), usuario.getRol().getNombreRol());
-                usuarioDTO = new UsuarioDTO(
-                        usuario.getId(),
-                        usuario.getUser_name(),
-                        usuario.getUser_password(),
-                        despachador,
-                        personaMapper.toDTO(usuario.getPersona()));
-            }
+        if (usuario == null) {
+            return null;
         }
+
+        UsuarioDTO usuarioDTO = new UsuarioDTO();
+        usuarioDTO.setId(usuario.getId());
+        usuarioDTO.setUser_name(usuario.getUser_name());
+        usuarioDTO.setUser_password(usuario.getUser_password());
+        usuarioDTO.setPersona(personaMapper.toDTO(usuario.getPersona()));
+
+        if (usuario.getRol() instanceof RolAdministrador) {
+            RolAdministrador rolAdmin = (RolAdministrador) usuario.getRol();
+            usuarioDTO.setRol(new RolAdministradorDTO(rolAdmin.getId(), rolAdmin.getNombreRol()));
+        } else if (usuario.getRol() instanceof RolConductor) {
+            RolConductor rolConductor = (RolConductor) usuario.getRol();
+            usuarioDTO.setRol(new RolConductorDTO(rolConductor.getId(), "conductor", rolConductor.getLicencia(), rolConductor.getExperiencia()));
+        } else if (usuario.getRol() instanceof RolDespachador) {
+            RolDespachador rolDespachador = (RolDespachador) usuario.getRol();
+            usuarioDTO.setRol(new RolDespachadorDTO(rolDespachador.getId(), rolDespachador.getNombreRol()));
+        }
+
         return usuarioDTO;
     }
 
     @Override
     public Usuario toEntity(UsuarioDTO usuarioDTO) {
-        Usuario usuario = new Usuario();
-
-        if (!usuarioDTO.equals(null)) {
-            PersonaMapperImplement personaMapper = new PersonaMapperImplement();
-
-            if (usuarioDTO.getRol() instanceof RolAdministradorDTO) {
-                RolAdministrador administrador = new RolAdministrador(usuarioDTO.getRol().getId(),
-                        usuarioDTO.getRol().getNombreRol());
-                usuario = new Usuario(
-                        usuario.getId(),
-                        usuario.getUser_name(),
-                        usuario.getUser_password(),
-                        administrador,
-                        personaMapper.toEntity(usuarioDTO.getPersona()));
-            }
-            if (usuarioDTO.getRol() instanceof RolConductorDTO) {
-                RolConductorDTO conductor = (RolConductorDTO) usuarioDTO.getRol();
-                RolConductor conductorF = new RolConductor(conductor.getId(), "CONDUCTOR", conductor.getLicencia(),
-                        conductor.getExperiencia());
-                usuario = new Usuario(
-                        usuario.getId(),
-                        usuario.getUser_name(),
-                        usuario.getUser_password(),
-                        conductorF,
-                        personaMapper.toEntity(usuarioDTO.getPersona()));
-            }
-            if (usuarioDTO.getRol() instanceof RolDespachadorDTO) {
-                RolDespachador despachador = new RolDespachador(usuarioDTO.getId(), usuarioDTO.getRol().getNombreRol());
-                usuario = new Usuario(
-                        usuario.getId(),
-                        usuario.getUser_name(),
-                        usuario.getUser_password(),
-                        despachador,
-                        personaMapper.toEntity(usuarioDTO.getPersona()));
-            }
+        if (usuarioDTO == null) {
+            return null;
         }
+    
+        Usuario usuario = new Usuario();
+        usuario.setId(usuarioDTO.getId());
+        usuario.setUser_name(usuarioDTO.getUser_name());
+        usuario.setUser_password(usuarioDTO.getUser_password());
+        usuario.setPersona(personaMapper.toEntity(usuarioDTO.getPersona()));
+    if (usuarioDTO.getRol() != null) {
+        if (usuarioDTO.getRol() instanceof RolAdministradorDTO) {
+            RolAdministradorDTO rolAdminDTO = (RolAdministradorDTO) usuarioDTO.getRol();
+            usuario.setRol(new RolAdministrador(rolAdminDTO.getId(), rolAdminDTO.getNombreRol()));
+        } else if (usuarioDTO.getRol() instanceof RolConductorDTO) {
+            RolConductorDTO rolConductorDTO = (RolConductorDTO) usuarioDTO.getRol();
+            usuario.setRol(new RolConductor(rolConductorDTO.getId(), rolConductorDTO.getNombreRol(), rolConductorDTO.getLicencia(), rolConductorDTO.getExperiencia()));
+        } else if (usuarioDTO.getRol() instanceof RolDespachadorDTO) {
+            RolDespachadorDTO rolDespachadorDTO = (RolDespachadorDTO) usuarioDTO.getRol();
+            usuario.setRol(new RolDespachador(rolDespachadorDTO.getId(), rolDespachadorDTO.getNombreRol()));
+        }
+     } else {
+        throw new RuntimeException("Error: El usuario debe tener un rol asignado.");
+     }
         return usuario;
     }
 }

@@ -13,6 +13,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 
@@ -22,6 +23,7 @@ import lombok.Data;
 @DiscriminatorColumn(name = "tipo_rol", discriminatorType = DiscriminatorType.STRING) // Diferencia los roles
 @Data
 @AllArgsConstructor
+@NoArgsConstructor 
 public abstract class Rol {
 
     @Id

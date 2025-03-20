@@ -5,10 +5,12 @@ import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @DiscriminatorValue("CONDUCTOR") // Se identifica como un conductor
 @Data
+@NoArgsConstructor //
 public class RolConductor extends Rol {
     
     @Column(name = "licencia", length = 200)
