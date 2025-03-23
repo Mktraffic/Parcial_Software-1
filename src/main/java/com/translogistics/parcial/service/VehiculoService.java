@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Service // 🔹 Agregar esta anotación para que Spring lo detecte
+@Service 
 public class VehiculoService {
     @Autowired
     private VehiculoRepository vehiculoRepository;

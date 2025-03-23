@@ -35,7 +35,7 @@ public class UsuarioMapperImplement implements UsuarioMapper {
             usuarioDTO.setRol(new RolAdministradorDTO(rolAdmin.getId(), rolAdmin.getNombreRol()));
         } else if (usuario.getRol() instanceof RolConductor) {
             RolConductor rolConductor = (RolConductor) usuario.getRol();
-            usuarioDTO.setRol(new RolConductorDTO(rolConductor.getId(), "conductor", rolConductor.getLicencia(), rolConductor.getExperiencia()));
+            usuarioDTO.setRol(new RolConductorDTO(rolConductor.getId(), rolConductor.getNombreRol(), rolConductor.getLicencia(), rolConductor.getExperiencia()));
         } else if (usuario.getRol() instanceof RolDespachador) {
             RolDespachador rolDespachador = (RolDespachador) usuario.getRol();
             usuarioDTO.setRol(new RolDespachadorDTO(rolDespachador.getId(), rolDespachador.getNombreRol()));

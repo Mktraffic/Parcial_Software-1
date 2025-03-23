@@ -5,8 +5,6 @@ import com.translogistics.parcial.mapper.PersonaMapper;
 import com.translogistics.parcial.model.Persona;
 import com.translogistics.parcial.repository.PersonaRepository;
 
-import jakarta.websocket.server.ServerEndpoint;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

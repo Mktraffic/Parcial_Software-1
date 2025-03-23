@@ -18,8 +18,9 @@ public class RolConductorDTO extends RolDTO {
         this.licencia = licencia;
         this.experiencia = experiencia;
     }
-     @JsonProperty("tipo")
+
+    @JsonProperty("tipo")
     public String getTipo() {
-        return "conductor"; 
+        return "conductor";
     }
 }

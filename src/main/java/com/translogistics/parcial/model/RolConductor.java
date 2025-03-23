@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class RolConductor extends Rol {
     
     @Column(name = "licencia", length = 200)
-    @Size(min = 3, max = 200)
+    @Size(min = 1, max = 200)
     private String licencia;
 
     @Column(name = "anios_experiencia")
