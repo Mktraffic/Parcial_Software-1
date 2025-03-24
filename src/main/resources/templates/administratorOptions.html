@@ -135,10 +135,10 @@
         <span>TRANSLOGISTICS</span>
       </div>
       <div class="user-profile">
-        <!--<div class="user-info">
-        <div class="user-name" th:text="${usuario.nombre}">Nombre Usuario</div>
-        <div class="user-role" th:text="${usuario.rol}">Rol Usuario</div>
-      </div>-->
+        <div class="user-info">
+          <div class="user-name" th:text="${session.usuario != null ? session.usuario : 'Invitado'}"></div>
+          <div class="user-role" th:text="${session.rol != null ? session.rol : 'Sin rol'}"></div>
+        </div>
         <div class="status-indicator"></div>
       </div>
       <div class="modules-title">Módulos a gestionar</div>
@@ -165,9 +165,12 @@
       </form>
     </div>
     <div class="main-content">
-      <h1>Bienvenido,</h1>
+      <h1 th:text="${session.usuario != null ? 'Bienvenido, ' + session.usuario : 'Bienvenido, Invitado'}">
+        Bienvenido, Usuario
+      </h1>
       <p>Seleccione un modulo a gestionar</p>
     </div>
   </div>
 </body>
+
 </html>

@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 @Service
 public class UsuarioService {
 
-
     @Autowired
     private UsuarioRepository usuarioRepository;
 
@@ -37,22 +36,18 @@ public class UsuarioService {
         return usuarioMapper.toDTO(usuarioGuardado);
     }
 
-    public ResponseEntity<UsuarioDTO> fetchUsuarioById(Long id) {
-        Optional<Usuario> usuario = usuarioRepository.findById(id);
-        if (usuario.isEmpty()) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+    public String validateUserByUserName(String userName, String password) {
+        List<UsuarioDTO> userList = findAllUsuarios();
+        boolean reponse = false;
+        String userRol = "";
+        for (int i = 0; i < userList.size(); i++) {
+            if(userList.get(i).getUser_name().equals(userName) && userList.get(i).getUser_password().equals(password)){
+                reponse=true;
+                userRol = userList.get(i).getRol().getNombreRol();
+                break;
+            }
         }
-        return new ResponseEntity<>(usuarioMapper.toDTO(usuario.get()), HttpStatus.OK);
-    }
-
-    public boolean validateUserById(Long id, String password) {
-        Optional<Usuario> usuarioOptional = usuarioRepository.findById(id);
-
-        if (usuarioOptional.isPresent()) {
-            Usuario usuario = usuarioOptional.get();
-            return usuario.getUser_password().equals(password); // Se debe usar getPassword()
-        }
-        return false;
+        return reponse+","+userRol;
     }
 
 }

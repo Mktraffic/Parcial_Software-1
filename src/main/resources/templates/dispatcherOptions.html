@@ -113,6 +113,11 @@
         .logout-button:hover {
             background-color: #c0392b;
         }
+
+        .main-content {
+            flex-grow: 1;
+            padding: 20px;
+        }
     </style>
 </head>
 
@@ -131,10 +136,10 @@
             </div>
             <div class="user-profile">
 
-                <!--<div class="user-info">
-        <div class="user-name" th:text="${usuarioDTO.persona.nombre}"></div>
-        <div class="user-role" th:text="${usuarioDTO.rol.nombreROl}"></div>
-      </div>-->
+                <div class="user-info">
+                    <div class="user-name" th:text="${session.usuario != null ? session.usuario : 'Invitado'}"></div>
+                    <div class="user-role" th:text="${session.rol != null ? session.rol : 'Sin rol'}"></div>
+                </div>
                 <div class="status-indicator"></div>
             </div>
             <div class="modules-title">Módulos a gestionar</div>
@@ -146,6 +151,12 @@
             <form th:action="@{/logout}" method="post">
                 <button type="submit" class="logout-button">Cerrar sesión</button>
             </form>
+        </div>
+        <div class="main-content">
+            <h1 th:text="${session.usuario != null ? 'Bienvenido, ' + session.usuario : 'Bienvenido, Invitado'}">
+                Bienvenido, Usuario
+            </h1>
+            <p>Seleccione un modulo a gestionar</p>
         </div>
     </div>
 </body>

@@ -1,5 +1,7 @@
 package com.translogistics.parcial.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,9 +14,12 @@ import com.translogistics.parcial.dto.UsuarioDTO;
 import com.translogistics.parcial.dto.UsuarioRolConductorDTO;
 import com.translogistics.parcial.dto.VehiculoDTO;
 import com.translogistics.parcial.model.RolAdministrador;
+import com.translogistics.parcial.model.Usuario;
 import com.translogistics.parcial.service.PersonaService;
 import com.translogistics.parcial.service.RolService;
 import com.translogistics.parcial.service.UsuarioService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class SystemController {
@@ -61,13 +66,13 @@ public class SystemController {
     }
 
     @PostMapping("/loggeo")
-    public String procesarLogin(@ModelAttribute UsuarioDTO usuarioDTO, Model model) {
-        boolean isAuthenticated = usuarioService.validateUserById(usuarioDTO.getId(), usuarioDTO.getUser_password());
-
+    public String procesarLogin(@ModelAttribute UsuarioDTO usuarioDTO, Model model,HttpSession session) {
+        String []data = usuarioService.validateUserByUserName(usuarioDTO.getUser_name(), usuarioDTO.getUser_password()).split(",");
+        boolean isAuthenticated = Boolean.parseBoolean(data[0]);
         if (isAuthenticated) {
-            model.addAttribute("mensaje",
-                    "Login exitoso para el " + usuarioDTO.getRol().getNombreRol() + " con ID: " + usuarioDTO.getId());
-            String rol = usuarioDTO.getRol().getNombreRol();
+            String rol = data[1];
+            session.setAttribute("usuario", searchPersonByUserName(usuarioDTO.getUser_name()));
+            session.setAttribute("rol",rol);
             switch (rol.toUpperCase()) {
                 case "ADMINISTRADOR":
                     return "administratorOptions";
@@ -81,6 +86,16 @@ public class SystemController {
 
         model.addAttribute("error", "Credenciales incorrectas");
         return "/login";
+    }
+    public String searchPersonByUserName(String user_name){
+        List<UsuarioDTO> userList = usuarioService.findAllUsuarios();
+        String nombre="";
+        for(int i=0;i<userList.size();i++){
+            if(userList.get(i).getUser_name().equals(user_name)){
+                nombre =userList.get(i).getPersona().getNombre()+" "+userList.get(i).getPersona().getApellido();
+            }
+        }
+        return nombre;
     }
     // Navegación entre vistas
 
