@@ -29,12 +29,19 @@ public class DispatcherController {
 
     @PostMapping("/asignar")
     public String procesarAsignacion(
-            @ModelAttribute("vehiculoPlaca") String placaVehiculo,
-            @ModelAttribute("conductorNombre") String nombreConductor,
+            @ModelAttribute("vehiculo") String placaVehiculo,
+            @ModelAttribute("conductor") String nombreConductor,
             Model model) {
 
-        ResponseEntity<VehiculoDTO> vehiculoResponse = vehiculoService.fetchVehiculoByPlaca(placaVehiculo);
-        VehiculoDTO vehiculoDTO = vehiculoResponse.getBody();
+        System.out.println(placaVehiculo + " primer punto ");
+        System.out.println(nombreConductor + " segundo punto ");
+
+        String[] placa = placaVehiculo.trim().split("-");
+
+        System.out.println(placa[0] + "Aca esta la placa ");
+
+        VehiculoDTO vehiculoResponse = vehiculoService.fetchVehiculoByPlaca(placa[0].trim());
+        System.out.println(vehiculoResponse);
         List<UsuarioDTO> usuarios = usuarioService.findAllUsuarios();
 
         UsuarioDTO conductor = usuarios.stream()
@@ -45,13 +52,20 @@ public class DispatcherController {
                 .findFirst()
                 .orElse(null);
 
+        System.out.println(conductor);
+
         RegistroViajeDTO registroViajeDTO = new RegistroViajeDTO();
         registroViajeDTO.setFechaViaje(LocalDate.now().format(DateTimeFormatter.ISO_DATE));
-        registroViajeDTO.setVehiculo(vehiculoDTO);
+        registroViajeDTO.setVehiculo(vehiculoResponse);
         registroViajeDTO.setConductor(conductor);
         registroViajeService.addRegistroViaje(registroViajeDTO);
 
-        return "assingDriver";
+        List<String> vehiculos = findAllPlatesVehicles();
+        List<String> conductores = findAllDrivers();
+        model.addAttribute("vehiculos", vehiculos);
+        model.addAttribute("conductores", conductores);
+
+        return "assignDriver";
     }
 
     @GetMapping("/dispatcher/asignarConductor")

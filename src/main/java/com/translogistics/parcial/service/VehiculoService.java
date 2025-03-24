@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Service 
+@Service
 public class VehiculoService {
     @Autowired
     private VehiculoRepository vehiculoRepository;
@@ -28,7 +28,6 @@ public class VehiculoService {
                 .map(vehiculoMapper::toDTO)
                 .collect(Collectors.toList());
     }
-    
 
     // Guardar un vehículo en la base de datos
     public VehiculoDTO addVehiculoInDB(VehiculoDTO vehiculoDTO) {
@@ -37,11 +36,11 @@ public class VehiculoService {
     }
 
     // Obtener vehículo por placa
-    public ResponseEntity<VehiculoDTO> fetchVehiculoByPlaca(String placa) {
+    public VehiculoDTO fetchVehiculoByPlaca(String placa) {
         Optional<Vehiculo> vehiculo = vehiculoRepository.findById(placa);
         if (vehiculo.isEmpty()) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            return null; //  lanzar una excepción
         }
-        return new ResponseEntity<>(vehiculoMapper.toDTO(vehiculo.get()), HttpStatus.OK);
+        return vehiculoMapper.toDTO(vehiculo.get());
     }
 }

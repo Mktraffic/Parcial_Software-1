@@ -5,12 +5,9 @@ import com.translogistics.parcial.mapper.UsuarioMapper;
 import com.translogistics.parcial.model.Usuario;
 import com.translogistics.parcial.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service

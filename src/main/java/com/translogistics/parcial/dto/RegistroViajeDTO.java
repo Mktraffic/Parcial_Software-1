@@ -12,5 +12,5 @@ public class RegistroViajeDTO {
     private Long id;
     private String fechaViaje;
     private VehiculoDTO vehiculo;
-    private UsuarioDTO conductor; // Cambiar a RolConductorDTO
+    private UsuarioDTO conductor;
 }

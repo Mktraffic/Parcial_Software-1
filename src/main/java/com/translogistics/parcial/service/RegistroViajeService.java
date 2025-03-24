@@ -30,11 +30,5 @@ public class RegistroViajeService {
         return registroViajeMapper.toDTO(savedRegistroViaje);
     }
 
-    /*public ResponseEntity<RegistroViajeDTO> searchRegistroViajeById(int id){
-        Optional<RegistroViaje> registro = registroViajeRepository.findById(id);
-        if (registro.isEmpty()) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(registroViajeMapper.toDTO(registro.get()),HttpStatus.OK);
-    }*/
+    
 }
